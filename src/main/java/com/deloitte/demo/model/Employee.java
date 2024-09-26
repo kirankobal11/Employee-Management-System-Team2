@@ -1,20 +1,24 @@
 package com.deloitte.demo.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
-@Table(name = "emps")
+@Table(name = "employees")
 public class Employee {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+
+	@Column(name = "name")
 	private String firstName;
+
+	@Column(name = "salary")
 	private double salary;
+
+	@ManyToOne
+	@JoinColumn(name = "department_id")
+	private Department department;
 
 	public Employee() {
 		super();
@@ -57,9 +61,16 @@ public class Employee {
 		this.salary = salary;
 	}
 
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", firstName=" + firstName + ", salary=" + salary + "]";
 	}
-
 }
